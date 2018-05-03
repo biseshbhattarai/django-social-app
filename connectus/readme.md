@@ -1,0 +1,1 @@
+##This is just a simple social app made within django , can be a little help for people dealing with manytomany fields, and allowing proper access control

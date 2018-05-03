@@ -1,0 +1,100 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    .container p {
+      font-size: 18px;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Connect Us</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <a href="{% url 'logout' %}">Logout</a>
+        </li>
+        <li>
+          <a href="{% url 'update-profile' %}">Profile</a>
+        </li>
+        <!-- <li><a href="collapsible.html"></a></li> -->
+      </ul>
+    </div>
+  </nav>
+
+  
+
+  <div class="container">
+    <div class="row">
+    
+      <div class="col s12 m6">
+
+
+        <h3>Other People</h3>
+        {% for user in users %} {% if not user in friends %}
+        
+        <a href="{% url 'view_profile_with_pk' pk=user.pk %}">
+          <p>{{ user.username }}</p>
+        </a>
+
+        <a href="{% url 'change_friends' operation='add' pk=user.pk %}">
+          <button type="button" class="btn btn-success">Follow</button>
+        </a>
+        {% endif %} {% endfor %}
+        <h3>Friends</h3>
+        {% for friend in friends %}
+        <a href="{% url 'view_profile_with_pk' pk=friend.pk %}">
+          <p>{{ friend.username }}</p>
+        </a>
+        <a href="{% url 'change_friends' operation='remove' pk=friend.pk %}">
+          <button type="button" class="btn btn-default">Unfollow</button>
+        </a>
+        {% endfor %}
+      </div>
+      <div class="col s12 m6">
+      <ul class="collection with-header">
+          <li class="collection-header"><h4>Posts</h4></li>
+          <li class="collection-item">
+              <li class="collection-item">
+               
+                  {% for post in posts %}
+                  <img src="{{post.upload_image.url}}" height="200" width="300">
+                  <p>{{post.status}}</p>
+                  Posted By : {{post.user.username}} <br>
+                  <small>{{post.published_date}}</small><br><br>
+                  
+                  {% endfor %} 
+                  
+                
+                </li>
+                </li>
+                </ul>
+                </div>
+                </div>
+                </div>
+                
+             
+            
+
+
+
+
+
+
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</body>
+
+</html>
